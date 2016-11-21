@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chain", "Chain\Chain.csproj", "{33FE853A-E1A5-40E9-8CE3-1D319927496F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chain.AWS", "Chain.AWS\Chain.AWS.csproj", "{A3EDA186-8D1A-4F24-A990-0F3C048C95B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "testbed", "testbed\testbed.csproj", "{7591BFAF-2360-40B5-9635-909F0C5F01EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chain.KakaoTalk", "Chain.KakaoTalk\Chain.KakaoTalk.csproj", "{566EC1C9-8729-46DE-B6CF-B05A92D5F17D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chain.PushBullet", "Chain.PushBullet\Chain.PushBullet.csproj", "{D500F585-9429-46B8-AC90-C3C549AD381F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chain.Google", "Chain.Google\Chain.Google.csproj", "{1D747150-81F4-4304-99C8-085DA67A008F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33FE853A-E1A5-40E9-8CE3-1D319927496F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33FE853A-E1A5-40E9-8CE3-1D319927496F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33FE853A-E1A5-40E9-8CE3-1D319927496F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33FE853A-E1A5-40E9-8CE3-1D319927496F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3EDA186-8D1A-4F24-A990-0F3C048C95B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3EDA186-8D1A-4F24-A990-0F3C048C95B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3EDA186-8D1A-4F24-A990-0F3C048C95B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3EDA186-8D1A-4F24-A990-0F3C048C95B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7591BFAF-2360-40B5-9635-909F0C5F01EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7591BFAF-2360-40B5-9635-909F0C5F01EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7591BFAF-2360-40B5-9635-909F0C5F01EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7591BFAF-2360-40B5-9635-909F0C5F01EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{566EC1C9-8729-46DE-B6CF-B05A92D5F17D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{566EC1C9-8729-46DE-B6CF-B05A92D5F17D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{566EC1C9-8729-46DE-B6CF-B05A92D5F17D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{566EC1C9-8729-46DE-B6CF-B05A92D5F17D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D500F585-9429-46B8-AC90-C3C549AD381F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D500F585-9429-46B8-AC90-C3C549AD381F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D500F585-9429-46B8-AC90-C3C549AD381F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D500F585-9429-46B8-AC90-C3C549AD381F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D747150-81F4-4304-99C8-085DA67A008F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D747150-81F4-4304-99C8-085DA67A008F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D747150-81F4-4304-99C8-085DA67A008F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D747150-81F4-4304-99C8-085DA67A008F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
