@@ -12,6 +12,14 @@ namespace Chain.Git
 {
     public class GitCheckout : ChainTask
     {
+        #region IN_KEYS
+        public static readonly string IN_Repo = nameof(Repo);
+        public static readonly string IN_Sha = nameof(Sha);
+        public static readonly string IN_LocalPath = nameof(LocalPath);
+        #endregion
+
+        private GitRemotePoint Repo;
+        private string Sha;
         private string LocalPath;
 
         public GitCheckout(string localPath)
@@ -22,17 +30,20 @@ namespace Chain.Git
         {
         }
         
+        [Ev2Param(typeof(GitRepository))]
+        private void OnGitRepository(GitRepository ev)
+        {
+            Repo = ev.RemotePoint;
+            Sha = ev.Sha;
+        }
+
         public override void OnExecute()
         {
-            Require<GitRepository>();
-
             var co = new CloneOptions();
             co.CredentialsProvider = Context.CredentialProvider.Get<GitCredential, CredentialsHandler>();
 
-            var gitRepo = Context.Get<GitRepository>();
-
             if (LocalPath == null)
-                LocalPath = $"./{gitRepo.RemotePoint.Owner}_{gitRepo.RemotePoint.RepositoryName}_{gitRepo.Sha}";
+                LocalPath = $"./{Context.WorkingDirectory}/{Repo.Owner}_{Repo.RepositoryName}_{Sha}";
 
             if (Directory.Exists(LocalPath))
             {
@@ -40,15 +51,20 @@ namespace Chain.Git
                 Directory.Delete(LocalPath);
             }
 
-            Repository.Clone(gitRepo.RemotePoint.Url, LocalPath, co);
-            using (var repo = new Repository(LocalPath))
+            Repository.Clone(Repo.Url, LocalPath, co);
+
+            // 지정된 SHA로 리셋
+            if (string.IsNullOrEmpty(Sha) == false)
             {
-                repo.Reset(ResetMode.Hard, gitRepo.Sha);
+                using (var repo = new Repository(LocalPath))
+                {
+                    repo.Reset(ResetMode.Hard, Sha);
+                }
             }
 
             Context.Set(new LocalCopy()
             {
-                Name = gitRepo.RemotePoint.Url,
+                Name = Repo.Url,
                 Path = LocalPath
             });
         }

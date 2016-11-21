@@ -24,15 +24,15 @@ namespace Chain
             Storage[key] = value;
         }
 
-        public static void SetCredential<T>(string key, T obj)
-            where T : IServiceCredential
+        public static void SetCredential<TCRED>(string key, TCRED obj)
+            where TCRED : IServiceCredentials
         {
-            Set("credentials." + key, JsonConvert.SerializeObject(obj));
+            Set("credentials." + typeof(TCRED).FullName + "." + key, JsonConvert.SerializeObject(obj));
         }
-        public static void SetCredential<T>(T obj)
-            where T : IServiceCredential
+        public static void SetCredential<TCRED>(TCRED obj)
+            where TCRED : IServiceCredentials
         {
-            SetCredential<T>("default", obj);
+            SetCredential<TCRED>("default", obj);
         }
     }
 }

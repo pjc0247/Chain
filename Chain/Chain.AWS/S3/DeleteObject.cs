@@ -33,7 +33,7 @@ namespace Chain.AWS.S3
                 BucketName = BucketName,
                 Key = RemoteFilePath
             });
-
+            
             if (response.HttpStatusCode == System.Net.HttpStatusCode.OK)
                 throw new InvalidOperationException($"S3Response => {response.HttpStatusCode}");
         }

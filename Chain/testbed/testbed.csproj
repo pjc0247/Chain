@@ -58,9 +58,25 @@
       <Project>{1d747150-81f4-4304-99c8-085da67a008f}</Project>
       <Name>Chain.Google</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chain.HTTPServ\Chain.HTTPServ.csproj">
+      <Project>{fc4ffaf9-6809-471a-af39-cd3f61085c2c}</Project>
+      <Name>Chain.HTTPServ</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chain.Hue\Chain.Hue.csproj">
+      <Project>{e53ad82c-2094-4f8e-bbed-b9ebcc0d76fb}</Project>
+      <Name>Chain.Hue</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chain.PushBullet\Chain.PushBullet.csproj">
       <Project>{d500f585-9429-46b8-ac90-c3c549ad381f}</Project>
       <Name>Chain.PushBullet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chain.Redis\Chain.Redis.csproj">
+      <Project>{6fb336eb-e089-4ee3-a081-ed52be8cc828}</Project>
+      <Name>Chain.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chain.Slack\Chain.Slack.csproj">
+      <Project>{e63deb15-f64a-418a-814d-a8ef8b9ca59b}</Project>
+      <Name>Chain.Slack</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chain\Chain.csproj">
       <Project>{33fe853a-e1a5-40e9-8ce3-1d319927496f}</Project>

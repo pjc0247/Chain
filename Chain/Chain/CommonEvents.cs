@@ -33,4 +33,8 @@ namespace Chain
     {
         public string ImageUrl;
     }
+
+    public class PendingRequest : Event
+    {
+    }
 }

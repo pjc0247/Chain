@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HueCredential.cs" />
     <Compile Include="HueTasks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

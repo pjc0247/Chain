@@ -48,6 +48,8 @@ namespace Chain.AWS.S3
 
             if (string.IsNullOrEmpty(response))
                 throw new InvalidOperationException($"S3GetPresignedUrl : invalid response");
+
+            Context.Out(OUT_Url, response);
         }
     }
 }

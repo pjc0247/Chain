@@ -18,8 +18,10 @@ namespace Chain.Google.Gmail
         #region IN_KEYS
         public static readonly string IN_Subject = nameof(Subject);
         public static readonly string IN_Body = nameof(Body);
+        public static readonly string IN_Receiver = nameof(Receiver);
         #endregion
 
+        private string Receiver;
         private string Subject;
         private string Body;
 
@@ -44,7 +46,7 @@ namespace Chain.Google.Gmail
             var service = new GmailService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
-                ApplicationName = "HELLO",
+                ApplicationName = "Chain.Google.Gmail",
             });
 
             var a = new Message();
@@ -54,9 +56,9 @@ namespace Chain.Google.Gmail
 
             var mailMessage = new System.Net.Mail.MailMessage();
             mailMessage.From = new System.Net.Mail.MailAddress(myAddr);
-            mailMessage.To.Add("pjc0247@gmail.com");
-            mailMessage.Subject = "SUBJECT";
-            mailMessage.Body = "BODY";
+            mailMessage.To.Add(Receiver);
+            mailMessage.Subject = Subject;
+            mailMessage.Body = Body;
             mailMessage.IsBodyHtml = true;
 
             service.Users.Messages.Send(new Message()

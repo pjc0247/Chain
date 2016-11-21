@@ -9,6 +9,16 @@ namespace Chain.Common
 {
     public class StartProcess : ChainTask
     {
+        #region IN_KEYS
+        public static readonly string IN_Path = nameof(Path);
+        public static readonly string IN_Args = nameof(Args);
+
+        public static readonly string IN_ExpectedExitCode = nameof(ExpectedExitCode);
+        #endregion
+        #region OUT_KEYS
+        public static readonly string OUT_ExitCode = $"Common.{nameof(StartProcess)}.ExitCode";
+        #endregion
+
         private string Path;
         private string Args;
 
@@ -31,6 +41,8 @@ namespace Chain.Common
             var p = Process.Start(Path, Args);
 
             p.WaitForExit();
+
+            Context.Out(OUT_ExitCode, p.ExitCode);
 
             if (ExpectedExitCode.HasValue)
             {

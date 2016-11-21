@@ -53,6 +53,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +64,8 @@
   <ItemGroup>
     <Compile Include="AbstractForms.cs" />
     <Compile Include="CommonEvents.cs" />
+    <Compile Include="Common\ConstantTemplate.cs" />
+    <Compile Include="Common\Delay.cs" />
     <Compile Include="Common\EventSources\Timer.cs" />
     <Compile Include="Common\Filters\MessageContains.cs" />
     <Compile Include="Common\Filters\MessageRegex.cs" />
@@ -71,19 +74,38 @@
     <Compile Include="Common\OutValue.cs" />
     <Compile Include="Common\StartProcess.cs" />
     <Compile Include="Common\UserTask.cs" />
+    <Compile Include="Common\UserTemplate.cs" />
     <Compile Include="Common\WaitForAllAsyncTasks.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="CredentialProvider.cs" />
+    <Compile Include="CredentialsProvider.cs" />
+    <Compile Include="Ev2ParamAttribute.cs" />
     <Compile Include="EventFilter.cs" />
+    <Compile Include="FileIO\CopyFile.cs" />
+    <Compile Include="FileIO\DeleteFile.cs" />
+    <Compile Include="FileIO\Unzip.cs" />
+    <Compile Include="FileIO\WriteFile.cs" />
+    <Compile Include="FileIO\Zip.cs" />
+    <Compile Include="Github\AssignIssue.cs" />
+    <Compile Include="Github\CloseIssue.cs" />
     <Compile Include="Github\CommentEventPublisher.cs" />
+    <Compile Include="Github\GithubCommentEventTemplate.cs" />
+    <Compile Include="Github\GithubCredentials.cs" />
+    <Compile Include="Github\NewIssue.cs" />
+    <Compile Include="Github\NewIssueTemplate.cs" />
+    <Compile Include="Github\NewPullRequestEventPublisher.cs" />
     <Compile Include="Github\UserMentioned.cs" />
+    <Compile Include="Github\WriteIssueComment.cs" />
     <Compile Include="Git\GitCheckout.cs" />
+    <Compile Include="Git\GitCheckoutPullRequest.cs" />
     <Compile Include="Git\GitCredential.cs" />
     <Compile Include="Git\GitRepository.cs" />
     <Compile Include="Git\Models.cs" />
-    <Compile Include="IServiceCredential.cs" />
+    <Compile Include="IMessageTemplate.cs" />
+    <Compile Include="IServiceCredentials.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Stdio\Event.cs" />
     <Compile Include="Stdio\ReadLine.cs" />
+    <Compile Include="Stdio\WriteAllEvents.cs" />
     <Compile Include="Stdio\WriteLine.cs" />
     <Compile Include="Github\GithubEvent.cs" />
     <Compile Include="Github\CommitEventPublisher.cs" />
@@ -91,6 +113,8 @@
     <Compile Include="Chain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChainTask.cs" />
+    <Compile Include="SystemMonitor\CpuUsage.cs" />
+    <Compile Include="SystemMonitor\Events.cs" />
     <Compile Include="TaskContext.cs" />
   </ItemGroup>
   <ItemGroup>

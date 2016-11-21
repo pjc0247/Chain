@@ -9,17 +9,17 @@ using LibGit2Sharp.Handlers;
 
 namespace Chain.Git
 {
-    public class GitCredential : IServiceCredential
+    public class GitCredential : IServiceCredentials
     {
-        public string UserName;
-        public string Email;
+        public string Username;
+        public string Password;
 
         public object CreateClient()
         {
             return new CredentialsHandler((_url, _user, _cred) => new UsernamePasswordCredentials
             {
-                Username = Config.Get("git.username", ""),
-                Password = Config.Get("git.password", "")
+                Username = Username,
+                Password = Password
             });
         }
     }

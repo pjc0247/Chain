@@ -31,6 +31,27 @@ namespace Chain.Github
         public GitRemotePoint From;
         public User User;
 
+        public string Url;
         public string Message;
+    }
+
+    public class PullRequestEvent : Event
+    {
+        public GitRemotePoint From;
+        public User User;
+
+        public string Url;
+        public string Title;
+    }
+
+    public class IssueOrPullRequest : Event
+    {
+        public GitRemotePoint From;
+        public User User;
+
+        public string Url;
+        public string Title;
+
+        public int No;
     }
 }

@@ -13,6 +13,12 @@ namespace Chain.AWS.S3
 {
     public class PutACL : ChainTask
     {
+        #region IN_KEYS
+        public static readonly string IN_BucketName = nameof(BucketName);
+        public static readonly string IN_RemoteFilePath = nameof(RemoteFilePath);
+        public static readonly string IN_Acl = nameof(Acl);
+        #endregion
+
         private string BucketName;
         private string RemoteFilePath;
         private string Acl;

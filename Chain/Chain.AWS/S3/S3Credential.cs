@@ -10,7 +10,7 @@ using Amazon.S3;
 
 namespace Chain.AWS.S3
 {
-    public class S3Credential : IServiceCredential
+    public class S3Credential : IServiceCredentials
     {
         public string AccessKey;
         public string Secret;

@@ -10,6 +10,19 @@ namespace Chain
 {
     public class Event
     {
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+            var fields = GetType().GetFields();
+
+            sb.Append(GetType().Name);
+            foreach (var field in fields)
+            {
+                sb.Append($"  - {field.Name} = {field.GetValue(this)} \r\n");
+            }
+
+            return sb.ToString();
+        }
     }
 
     public interface IEventPublisher
@@ -23,13 +36,6 @@ namespace Chain
     {
     }
 
-    public class SubscriberInstance
-    {
-        public SubscriberInstance WithFilter<T>()
-        {
-            return this;
-        }
-    }
     public class PublisherInstance
     {
         public IEventPublisher Instance { get; }
@@ -128,13 +134,6 @@ namespace Chain
             return publisher;
         }
 
-        public static SubscriberInstance Subscribe<T>()
-        {
-            var sub = new SubscriberInstance();
-
-            return sub;
-        }
-
         public static void Run()
         {
             Console.WriteLine("[RUN]");
@@ -142,19 +141,30 @@ namespace Chain
             if (Directory.Exists("./workspace") == false)
                 Directory.CreateDirectory("./workspace");
 
-            while (true)
+            var children = new List<Thread>();
+
+            foreach(var publisher in publishers)
             {
-                Console.WriteLine("Poll");
-
-                foreach (var publisher in publishers)
+                var child = new Thread(() =>
                 {
-                    var events = publisher.Instance.GetEvents().Result;
+                    while (true)
+                    {
+                        Console.WriteLine("[POLL] " + publisher.Instance);
 
-                    publisher.InvokeSubscribers(events);
-                }
+                        var events = publisher.Instance.GetEvents().Result;
 
-                Thread.Sleep(1000);
+                        publisher.InvokeSubscribers(events);
+
+                        Thread.Sleep(publisher.Instance.DefaultPollingInterval);
+                    }
+                });
+                child.Start();
+
+                children.Add(child);
             }
+
+            foreach (var child in children)
+                child.Join();
         }
     }
 }

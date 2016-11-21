@@ -12,4 +12,10 @@ namespace Chain.Git
 
         public string Sha;
     }
+    public class GitPullRequest : Event
+    {
+        public GitRemotePoint RemotePoint;
+
+        public int No;
+    }
 }

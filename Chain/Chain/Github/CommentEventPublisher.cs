@@ -62,13 +62,14 @@ namespace Chain.Github
 
                     var user = new User()
                     {
-                        Name = comment.User.Name
+                        Name = comment.User.Login
                     };
                     resultList.Add(new CommentEvent()
                     {
                         From = Repo,
                         User = user,
-                        Message = comment.Body
+                        Message = comment.Body,
+                        Url = comment.HtmlUrl.AbsoluteUri
                     });
                 }
 

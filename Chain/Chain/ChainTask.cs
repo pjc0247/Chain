@@ -11,7 +11,33 @@ namespace Chain
     class InBinding
     {
         public string FieldKey;
-        public string OutKey;
+
+        public Func<TaskContext, object> Generator;
+
+        public static InBinding FromConstantValue(string fieldKey, object value)
+        {
+            var ib = new InBinding();
+            ib.FieldKey = fieldKey;
+            ib.Generator = (ctx) => { return value; };
+            return ib;
+        }
+        public static InBinding FromOutKey(string fieldKey, string outKey)
+        {
+            var ib = new InBinding();
+            ib.FieldKey = fieldKey;
+            ib.Generator = (ctx) => { return ctx.In(outKey); };
+            return ib;
+        }
+        public static InBinding FromTemplate<TEMPLATE>(string fieldKey, params object[] args)
+            where TEMPLATE : IMessageTemplate
+        {
+            var ib = new InBinding();
+            var template = (TEMPLATE)Activator.CreateInstance(typeof(TEMPLATE), args);
+
+            ib.FieldKey = fieldKey;
+            ib.Generator = (ctx) => { return template.OnExecute(ctx); };
+            return ib;
+        }
     }
     class OutBinding
     {
@@ -48,10 +74,19 @@ namespace Chain
         }
 
         public ChainTask Credential<TCRED>(string key)
-            where TCRED : IServiceCredential
+            where TCRED : IServiceCredentials
         {
             CredentialOverrides[typeof(TCRED)] = key;
 
+            return this;
+        }
+
+        public ChainTask Set(string fieldKey, object value)
+        {
+            if (GetInField(fieldKey) == null)
+                throw new ArgumentException($"Field({fieldKey}) not exists in Task({GetType()}).");
+
+            InBindings.Add(InBinding.FromConstantValue(fieldKey, value));
             return this;
         }
         public ChainTask In(string fieldKey, string outKey)
@@ -59,10 +94,16 @@ namespace Chain
             if (GetInField(fieldKey) == null)
                 throw new ArgumentException($"Field({fieldKey}) not exists in Task({GetType()}).");
 
-            InBindings.Add(new InBinding() {
-                FieldKey = fieldKey,
-                OutKey = outKey
-            });
+            InBindings.Add(InBinding.FromOutKey(fieldKey, outKey));
+            return this;
+        }
+        public ChainTask In<TEMPLATE>(string fieldKey, params object[] args)
+            where TEMPLATE : IMessageTemplate
+        {
+            if (GetInField(fieldKey) == null)
+                throw new ArgumentException($"Field({fieldKey}) not exists in Task({GetType()}).");
+
+            InBindings.Add(InBinding.FromTemplate<TEMPLATE>(fieldKey, args));
             return this;
         }
         public ChainTask Out(string fieldKey)
@@ -130,6 +171,25 @@ namespace Chain
             }
         }
 
+        private void ProcessEv2Params()
+        {
+            var cvts = GetType()
+                .GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                .Select(x => new
+                {
+                    Method = x,
+                    Attr = (Ev2ParamAttribute)x.GetCustomAttribute(typeof(Ev2ParamAttribute), true)
+                })
+                .Where(x => x.Attr != null);
+
+            foreach (var cvt in cvts)
+            {
+                var ev = Context.Get(cvt.Attr.EventType);
+                if (ev != null)
+                    cvt.Method.Invoke(this, new object[] { ev });
+            }
+        }
+
         private void WrappedExecute()
         {
             Context.Reset();
@@ -137,12 +197,14 @@ namespace Chain
             foreach (var inBinding in InBindings)
             {
                 var field = GetInField(inBinding.FieldKey);
-                field.SetValue(this, Context.In(inBinding.OutKey));
+                field.SetValue(this, inBinding.Generator(Context));
             }
             foreach (var ov in CredentialOverrides)
             {
                 Context.CredentialProvider.SetKeyOnce(ov.Key, ov.Value);
             }
+
+            ProcessEv2Params();
 
             try
             {

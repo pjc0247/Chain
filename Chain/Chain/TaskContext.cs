@@ -16,7 +16,7 @@ namespace Chain
         private Dictionary<string, object> Storage
             = new Dictionary<string, object>();
 
-        public CredentialProvider CredentialProvider;
+        public CredentialsProvider CredentialProvider;
         public string WorkingDirectory;
 
         public TaskContext()
@@ -24,7 +24,7 @@ namespace Chain
             WorkingDirectory = $"./workspace/{Path.GetRandomFileName()}";
             Directory.CreateDirectory(WorkingDirectory);
 
-            CredentialProvider = new CredentialProvider();
+            CredentialProvider = new CredentialsProvider();
         }
         public void Dispose()
         {
@@ -38,6 +38,10 @@ namespace Chain
             CredentialProvider.Reset();
         }
 
+        public object Get(Type eventType)
+        {
+            return Events.FirstOrDefault(x => x.GetType() == eventType || x.GetType().IsSubclassOf(eventType));
+        }
         public T Get<T>()
             where T : Event
         {

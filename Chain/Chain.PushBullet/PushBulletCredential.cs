@@ -8,7 +8,7 @@ using PushbulletSharp;
 
 namespace Chain.PushBullet
 {
-    public class PushBulletCredential : IServiceCredential
+    public class PushBulletCredential : IServiceCredentials
     {
         public string AccessKey;
         public string EncryptionPassword;
