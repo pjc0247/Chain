@@ -1,8 +1,8 @@
 Chain
 ====
 
-__Chain__은 연관성 있는 작업들을 나열하여, 자동화할 수 있도록 해주는 프레임워크입니다. 
-
+__Chain__은 연관성 있는 작업들을 나열하여, 자동화할 수 있도록 해주는 프레임워크입니다. <br>
+아래의 예제는 특정 레포에 커밋이 푸시될 경우, 해당 레포를 다운받아 빌드하고 커밋 상태를 설정하는 소스입니다.
 ```cs
 Chain.AddEventSource<Github.CommitEventPublisher>("pjc0247", "RiniDic", "master")
     .Task<Git.Checkout>()
@@ -10,6 +10,8 @@ Chain.AddEventSource<Github.CommitEventPublisher>("pjc0247", "RiniDic", "master"
     .Task<Github.PublishCommitStatus>()
     .Task<Github.NotifyBuildFailure()
 ```
+이외에도 Chain은 단순히 CI 역할뿐만 아니라 웹서버, IoT, 시스템 모니터링등 더 많은 분야에서도 사용할 수 있도록 제작되었습니다.<br>
+더 만은 예제를 보려면 [링크](https://gist.github.com/pjc0247/d30d3ce1842f099fe32b588869055dbc)로.
 
 외 많들엇나
 ----
@@ -30,12 +32,11 @@ __이벤트 소스__는 작업의 트리거가 되는 서비스입니다.<br>
 이벤트 소스가 이벤트를 발생시키면, 해당 이벤트에 연결된 작업들이 순차적으로 실행되게 됩니다.<br>
 <br>
 __이벤트 소스의 예시__
-* Github.CommitEventPublisher
-* Github.CommentEventPublisher
-* Slack.MessageEventPublisher
-* HTTP.GetRequestEventPublisher
-* HTTP.PostRequestEventPublisher
-* FileSystem.NotifyChangeEventPublisher
+* 깃허브에 커밋이 올라왔을 때
+* 깃허브에 이슈가 올라왔을 때
+* 슬랙에 누군가 메세지를 보냈을 때
+* HTTP 요청이 들어왔을 때
+* 파일 시스템에서 파일 변화가 감지되었을 때
 
 태스크
 ----
@@ -96,3 +97,11 @@ public override void OnExecute() {
     Require<LocalCopy>();
 }
 ```
+
+__작업 결과를 IN 파라미터로 변환하기__<br>
+```cs
+[Ev2Param(typeof(LocalCopy))]
+public void OnLocalCopy(LocalCopy ev) {
+    Path = ev.Path;
+}
+``` 
