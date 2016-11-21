@@ -20,11 +20,11 @@ Chain.AddEventSource<Github.CommitEventPublisher>("pjc0247", "RiniDic", "master"
 * __채팅 봇 만들기__ : 각각의 서비스에 따라 다른 봇 프레임워크를 통해 제작
 * __알림 서비스__ : 직접 폴링하거나, 서비스에서 제공하는 웹훅을 사용하거나
 
-![flow](img/flow.png)<br>
+![flow](img/msflow.png)<br>
 __Chain__은 Microsoft __Flow__에 영감을 받아 만들어졌습니다.<br>
 각각의 미리 정의된 작업 템플릿들을 레고 블록을 이어 붙이듣이 짜맞추기만 하면 나머지는 __Chain__이 자동으로 실행되도록 도와줍니다.
 <br>
-![msbuildbot](img/dotnetbot.png)
+![msbuildbot](img/dotentbot.png)
 
 이벤트 소스
 ----
