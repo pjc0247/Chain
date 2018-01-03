@@ -1,8 +1,8 @@
 Chain
 ====
 
-__Chain__은 연관성 있는 작업들을 나열하여, 자동화할 수 있도록 해주는 프레임워크입니다. <br>
-아래의 예제는 특정 레포에 커밋이 푸시될 경우, 해당 레포를 다운받아 빌드하고 커밋 상태를 설정하는 소스입니다.
+__Chain__ is a framework that allows you automate series of works.<br>
+Below example shows how to make a task chain.
 ```cs
 Chain.AddEventSource<Github.CommitEventPublisher>("pjc0247", "RiniDic", "master")
     .Task<Git.Checkout>()
@@ -26,7 +26,7 @@ __Chain__은 Microsoft __Flow__에 영감을 받아 만들어졌습니다.<br>
 <br>
 ![msbuildbot](img/dotentbot.png)
 
-이벤트 소스
+EventSource
 ----
 __이벤트 소스__는 작업의 트리거가 되는 서비스입니다.<br>
 이벤트 소스가 이벤트를 발생시키면, 해당 이벤트에 연결된 작업들이 순차적으로 실행되게 됩니다.<br>
@@ -38,7 +38,7 @@ __이벤트 소스의 예시__
 * HTTP 요청이 들어왔을 때
 * 파일 시스템에서 파일 변화가 감지되었을 때
 
-태스크
+Task
 ----
 Task는 작업의 단위로, 이벤트 소스로부터 전달받은 데이터를 가공하거나, 프로젝트를 빌드, 이전 태스크들의 실행 결과를 유저에게 알리는 역할을 합니다.
 
@@ -51,7 +51,7 @@ __태스크의 예시__
 * Email.SendMail
 * KakaoTalk.SendMessage
 
-작업 콘텍스트
+Work Context
 ----
 __작업 콘텍스트__는 이전 작업들로부터 실행 결과를 가져오고, 이후에 실행될 작업들을 위해 이번 작업의 실행 결과를 저장하는 역할을 합니다.<br>
 <br>
